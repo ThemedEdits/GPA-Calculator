@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGPA Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <i class="fas fa-graduation-cap"></i>
+        <span>CGPA Calculator</span>
+      </div>
+      <div class="nav-user">
+        <span id="userName" class="user-name"></span>
+        <button id="authBtn" class="btn btn-primary" style="display: none;">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </button>
+        <button id="logoutBtn" class="btn btn-outline" style="display: none;">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Calculator Section -->
+    <section class="card calculator-card">
+      <div class="card-header">
+        <h2><i class="fas fa-calculator"></i> Semester Calculator</h2>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="semesterName">
+            <i class="fas fa-tag"></i> Semester Name
+          </label>
+          <input 
+            type="text" 
+            id="semesterName" 
+            class="form-control"
+            placeholder="e.g., Fall 2024">
+        </div>
+
+        <div class="subjects-section">
+          <div class="section-header">
+            <h3><i class="fas fa-book"></i> Subjects</h3>
+          </div>
+          <div id="subjectsContainer" class="subjects-container"></div>
+          <button id="addSubject" class="btn btn-secondary">
+            <i class="fas fa-plus"></i> Add Subject
+          </button>
+        </div>
+
+        <div class="result-box">
+          <div class="result-item">
+            <span class="result-label">Current GPA</span>
+            <span class="result-value" id="gpa">0.00</span>
+          </div>
+        </div>
+
+        <button id="saveSemester" class="btn btn-success btn-block" style="display: none;">
+          <i class="fas fa-save"></i> Save Semester
+        </button>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="card history-card" style="display: none;">
+      <div class="card-header">
+        <h2><i class="fas fa-history"></i> Saved Semesters</h2>
+      </div>
+      <div class="card-body">
+        <ul id="semesterList" class="semester-list"></ul>
+        
+        <div class="cgpa-box">
+          <div class="cgpa-content">
+            <span class="cgpa-label">Cumulative GPA</span>
+            <span class="cgpa-value" id="cgpa">0.00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-edit"></i> Edit Semester</h2>
+        <button id="closeModal" class="btn-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="editSemesterName">
+            <i class="fas fa-tag"></i> Semester Name
+          </label>
+          <input 
+            id="editSemesterName" 
+            class="form-control"
+            placeholder="Semester Name">
+        </div>
+
+        <div class="subjects-section">
+          <div class="section-header">
+            <h3><i class="fas fa-book"></i> Subjects</h3>
+          </div>
+          <div id="editSubjects" class="subjects-container"></div>
+          <button id="addEditSubject" class="btn btn-secondary">
+            <i class="fas fa-plus"></i> Add Subject
+          </button>
+        </div>
+
+        <div class="result-box">
+          <div class="result-item">
+            <span class="result-label">GPA</span>
+            <span class="result-value" id="editGPA">0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="cancelEdit" class="btn btn-outline">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button id="saveEdit" class="btn btn-success">
+          <i class="fas fa-check"></i> Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
