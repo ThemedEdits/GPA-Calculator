@@ -8,29 +8,41 @@
 }
 
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --secondary: #8b5cf6;
-  --success: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --dark: #1e293b;
-  --gray: #64748b;
-  --gray-light: #e2e8f0;
-  --gray-lighter: #f1f5f9;
-  --white: #ffffff;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* Primary Colors */
+  --primary: #4f46e5;          /* Deep indigo */
+  --primary-dark: #3730a3;     /* Darker indigo for hover/active */
+  --secondary: #7c3aed;        /* Purple accent */
+
+  /* Status Colors */
+  --success: #059669;          /* Dark green */
+  --danger: #b91c1c;           /* Dark red */
+  --warning: #d97706;          /* Deep amber/orange */
+
+  /* Background & Text */
+  --dark: #0f172a;             /* Main background */
+  --gray: #475569;             /* Secondary text / borders */
+  --gray-light: #334155;       /* Darker elements, card backgrounds */
+  --gray-lighter: #1e293b;     /* Slightly lighter dark for highlights */
+  --white: #f8fafc;            /* Off-white text for contrast */
+
+  /* Shadows for dark mode */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+
+  /* Border radius */
   --radius: 12px;
   --radius-sm: 8px;
+
+  /* Transition */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3730a3 0%, #2c2883 100%);
   min-height: 100vh;
-  color: var(--dark);
+  color: var(--white);
   line-height: 1.6;
 }
 
@@ -72,7 +84,7 @@ body {
    NAVBAR
    ============================================ */
 .navbar {
-  background: var(--white);
+  background: var(--dark);
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
@@ -154,7 +166,7 @@ body {
 }
 
 .card {
-  background: var(--white);
+  background: var(--dark);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -195,7 +207,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--white);
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
 }
@@ -207,12 +219,12 @@ body {
   border-radius: var(--radius-sm);
   font-size: 1rem;
   transition: var(--transition);
-  background: var(--white);
+  background: var(--gray-lighter);
 }
 
 .form-control:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--white);
 }
 
 .form-control::placeholder {
@@ -253,12 +265,12 @@ body {
 }
 
 .btn-secondary {
-  background: var(--gray-lighter);
-  color: var(--dark);
+  background: var(--primary-dark);
+  color: var(--white);
 }
 
 .btn-secondary:hover {
-  background: var(--gray-light);
+  background: var(--secondary);
 }
 
 .btn-success {
@@ -273,8 +285,8 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--gray);
-  border: 2px solid var(--gray-light);
+  color: var(--white);
+  border: 2px solid var(--white);
 }
 
 .btn-outline:hover {
@@ -322,7 +334,7 @@ body {
 .section-header h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--white);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -359,11 +371,12 @@ body {
 }
 
 .subject:hover {
-  border-color: var(--primary);
-  background: var(--white);
+  border-color: var(--primary-dark);
+  background: var(--gray-light);
 }
 
 .subject input {
+  background: var(--dark);
   padding: 0.75rem;
   border: 2px solid var(--gray-light);
   border-radius: var(--radius-sm);
@@ -410,7 +423,7 @@ body {
 }
 
 .result-label {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--white);
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -461,7 +474,7 @@ body {
 }
 
 .semester-list li:hover {
-  background: var(--white);
+  background: var(--dark);
   box-shadow: var(--shadow);
   transform: translateX(4px);
 }
@@ -516,7 +529,7 @@ body {
 }
 
 .cgpa-label {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--white);
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -560,7 +573,7 @@ body {
 
 .modal-content {
   position: relative;
-  background: var(--white);
+  background: var(--dark);
   border-radius: var(--radius);
   max-width: 600px;
   width: 100%;
@@ -618,6 +631,15 @@ body {
   gap: 1rem;
 }
 
+
+
+/* Target the text inside the input */
+input {
+  color: var(--white);        /* Text color */
+  caret-color: var(--white); /* Cursor color */
+}
+
+
 /* ============================================
    AUTH PAGE
    ============================================ */
@@ -636,7 +658,7 @@ body {
 }
 
 .auth-card {
-  background: var(--white);
+  background: var(--dark);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -678,7 +700,7 @@ body {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--gray);
+  color: var(--primary);
   transition: var(--transition);
   display: flex;
   align-items: center;
@@ -687,12 +709,12 @@ body {
 }
 
 .tab-btn.active {
-  background: var(--white);
-  color: var(--primary);
+  background: var(--dark);
+  color: var(--white);
 }
 
 .tab-btn:hover {
-  color: var(--primary);
+  color: var(--primary-dark);
 }
 
 .auth-body {
@@ -755,13 +777,12 @@ body {
 }
 
 .btn-google {
-  background: var(--white);
-  color: var(--dark);
-  border: 2px solid var(--gray-light);
+  background: var(--primary);
+  color: var(--white);
 }
 
 .btn-google:hover {
-  background: var(--gray-lighter);
+  background: var(--primary-dark);
   border-color: var(--gray);
 }
 

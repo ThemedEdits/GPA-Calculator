@@ -311,7 +311,7 @@ async function loadHistory() {
             li.innerHTML = `
         <div>
           <strong>${data.semester}</strong>
-          <span style="color: var(--gray); margin-left: 1rem;">
+          <span style="color: var(--white); margin-left: 1rem;">
   GPA: ${data.gpa} • Credits: ${data.credits} • Total GP: ${data.totalGradePoints}
 </span>
 
