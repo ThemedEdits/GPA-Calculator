@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/ui/PageTransition";
 import { GraduationCap, Menu, Moon, Sun, X, Calculator, LayoutDashboard, Settings } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { useAuth } from "@/hooks/useAuth";

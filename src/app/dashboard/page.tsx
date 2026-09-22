@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { TransitionLink as Link, usePageTransition } from "@/components/ui/PageTransition";
 import { useAuth } from "@/hooks/useAuth";
 import { getSemesters, deleteSemester } from "@/lib/database";
 import { calculateOverallCGPA, calculateSemesterGPA } from "@/lib/calculations";
@@ -22,18 +22,21 @@ export default function DashboardPage() {
   const [cgpaResult, setCgpaResult] = useState<CGPAResult | null>(null);
   const [loadingData, setLoadingData] = useState(true);
   
+  const { navigate } = usePageTransition();
+  const [isDeleting, setIsDeleting] = useState(false);
+  
   const [semesterToDelete, setSemesterToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push("/login");
+      navigate("/login");
       return;
     }
 
     if (user) {
       fetchData();
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, navigate]);
 
   const fetchData = async () => {
     if (!user) return;

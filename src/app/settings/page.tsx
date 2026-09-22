@@ -1,32 +1,36 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { logoutUser } from "@/lib/auth";
 import { useToastStore } from "@/hooks/useToast";
 import { LogOut, User } from "lucide-react";
+import { usePageTransition } from "@/components/ui/PageTransition";
 
 export default function SettingsPage() {
   const { user, isLoading } = useAuth();
-  const router = useRouter();
-  const { addToast } = useToastStore();
+  const { navigate } = usePageTransition();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const addToast = useToastStore((state) => state.addToast);
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push("/login");
+      navigate("/login");
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, navigate]);
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await logoutUser();
-      addToast("Successfully logged out.", "success");
-      router.push("/");
+      addToast("Successfully logged out", "success");
+      navigate("/");
     } catch (error) {
-      addToast("Error logging out.", "error");
+      addToast("Failed to log out", "error");
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 

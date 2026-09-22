@@ -6,19 +6,18 @@ import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/Card";
 import { Modal } from "../ui/Modal";
-import Link from "next/link";
+import { TransitionLink as Link, usePageTransition } from "@/components/ui/PageTransition";
 import { useAuth } from "@/hooks/useAuth";
 import { useToastStore } from "@/hooks/useToast";
 import { Subject, Semester } from "@/lib/types";
-import { getGradeInfoFromMarks, calculateSubjectQualityPoints } from "@/lib/grading";
 import { calculateSemesterGPA } from "@/lib/calculations";
+import { calculateSubjectQualityPoints, getGradeInfoFromMarks } from "@/lib/grading";
 import { saveSemester } from "@/lib/database";
-import { useRouter } from "next/navigation";
 
 export default function MainCalculator() {
   const { user } = useAuth();
-  const { addToast } = useToastStore();
-  const router = useRouter();
+  const addToast = useToastStore(state => state.addToast);
+  const { navigate } = usePageTransition();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [semesterName, setSemesterName] = useState("");
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
@@ -120,7 +119,7 @@ export default function MainCalculator() {
       setIsNameModalOpen(false);
       
       // Navigate to dashboard after saving
-      router.push('/dashboard');
+      navigate("/dashboard");
     } catch (error) {
       addToast("Failed to save semester. Please try again.", "error");
     } finally {

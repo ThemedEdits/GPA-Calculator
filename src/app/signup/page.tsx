@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { TransitionLink as Link, usePageTransition } from "@/components/ui/PageTransition";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { loginWithGoogle, handleAuthError } from "@/lib/auth";
@@ -10,21 +10,23 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToastStore } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
+import { GraduationCap, ArrowRight } from "lucide-react";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const { user } = useAuth();
-  const { addToast } = useToastStore();
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setisLoading] = useState(false);
+  const { navigate } = usePageTransition();
+  const { user, isLoading: authLoading } = useAuth();
+  const addToast = useToastStore((state) => state.addToast);
 
   useEffect(() => {
-    if (user) {
-      router.push("/dashboard");
+    if (user && !authLoading) {
+      navigate("/dashboard");
     }
-  }, [user, router]);
+  }, [user, authLoading, navigate]);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,28 +35,33 @@ export default function SignupPage() {
       return;
     }
     
-    setLoading(true);
+    if (password !== confirmPassword) {
+      addToast("Passwords do not match.", "error");
+      return;
+    }
+    
+    setisLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       addToast("Account created successfully!", "success");
-      router.push("/dashboard");
+      navigate("/dashboard");
     } catch (error: any) {
       addToast(handleAuthError(error), "error");
     } finally {
-      setLoading(false);
+      setisLoading(false);
     }
   };
 
   const handleGoogleSignup = async () => {
-    setLoading(true);
+    setisLoading(true);
     try {
       await loginWithGoogle();
       addToast("Account created with Google!", "success");
-      router.push("/dashboard");
+      navigate("/dashboard");
     } catch (error: any) {
       addToast(handleAuthError(error), "error");
     } finally {
-      setLoading(false);
+      setisLoading(false);
     }
   };
 
@@ -70,7 +77,7 @@ export default function SignupPage() {
             variant="outline" 
             className="w-full" 
             onClick={handleGoogleSignup}
-            disabled={loading}
+            disabled={isLoading}
           >
             <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
             Sign up with Google
@@ -107,7 +114,7 @@ export default function SignupPage() {
               required
               minLength={6}
             />
-            <Button type="submit" className="w-full" isLoading={loading}>
+            <Button type="submit" className="w-full" isLoading={isLoading}>
               Sign Up
             </Button>
           </form>
