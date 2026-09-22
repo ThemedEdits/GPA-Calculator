@@ -22,8 +22,8 @@ export function ToastContainer() {
               "flex w-full sm:w-auto max-w-sm items-center justify-between space-x-4 rounded-[var(--radius-md)] p-4 shadow-lg border pointer-events-auto",
               {
                 "bg-[var(--surface-elevated)] border-[var(--border)] text-[var(--text-primary)]": toast.type === "info",
-                "bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-800 text-green-800 dark:text-green-300": toast.type === "success",
-                "bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800 text-red-800 dark:text-red-300": toast.type === "error",
+                "bg-green-100 dark:bg-green-950 border-green-200 dark:border-green-900 text-green-800 dark:text-green-300": toast.type === "success",
+                "bg-red-100 dark:bg-red-950 border-red-200 dark:border-red-900 text-red-800 dark:text-red-300": toast.type === "error",
               }
             )}
           >
