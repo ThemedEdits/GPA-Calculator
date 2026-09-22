@@ -19,7 +19,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-[var(--accent)] text-white p-1.5 rounded-[var(--radius-sm)] group-hover:bg-[var(--accent-hover)] transition-colors">
+          <div className="bg-[var(--accent)] text-[var(--accent-foreground)] p-1.5 rounded-[var(--radius-sm)] group-hover:bg-[var(--accent-hover)] transition-colors">
             <GraduationCap className="h-5 w-5" />
           </div>
           <span className="font-bold text-lg tracking-tight">GPA Calc</span>

@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             "bg-[var(--surface-elevated)] text-[var(--text-primary)] hover:bg-[var(--border)]": variant === "secondary",
             "border border-[var(--border)] bg-transparent hover:bg-[var(--surface-elevated)] text-[var(--text-primary)]": variant === "outline",
             "bg-transparent hover:bg-[var(--surface-elevated)] text-[var(--text-primary)]": variant === "ghost",
-            "bg-[var(--danger)] text-white hover:bg-red-600": variant === "danger",
+            "bg-[var(--danger)] text-[var(--background)] hover:opacity-80": variant === "danger",
             "h-9 px-3 text-sm": size === "sm",
             "h-10 px-4 py-2": size === "md",
             "h-11 px-8 text-lg": size === "lg",

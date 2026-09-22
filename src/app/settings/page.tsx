@@ -47,7 +47,7 @@ export default function SettingsPage() {
         <CardContent className="space-y-6">
           <div>
             <label className="text-sm font-medium text-[var(--text-secondary)] block mb-1">Email</label>
-            <div className="p-3 bg-[var(--surface-elevated)] border border-[var(--border)] rounded-[var(--radius-md)] text-[var(--text-primary)]">
+            <div className="p-3 bg-[var(--surface-elevated)] border border-[var(--border)] rounded-[var(--radius-md)] text-[var(--text-primary)] break-all overflow-hidden">
               {user.email || "No email available"}
             </div>
           </div>

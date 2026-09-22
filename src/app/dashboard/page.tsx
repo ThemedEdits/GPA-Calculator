@@ -184,10 +184,10 @@ export default function DashboardPage() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-6 self-start sm:self-center">
-                        <div className="text-right">
+                      <div className="flex items-center justify-between w-full sm:w-auto sm:justify-start gap-6 mt-4 sm:mt-0">
+                        <div className="text-left sm:text-right">
                           <div className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wider mb-1">Semester GPA</div>
-                          <div className="text-2xl font-bold text-[var(--accent)]">{result.gpa.toFixed(2)}</div>
+                          <div className="text-2xl font-bold text-[var(--text-primary)]">{result.gpa.toFixed(2)}</div>
                         </div>
                         
                         <div className="h-10 w-px bg-[var(--border)] hidden sm:block"></div>
@@ -199,7 +199,7 @@ export default function DashboardPage() {
                             className="text-[var(--text-muted)] hover:text-[var(--danger)]"
                             onClick={() => setSemesterToDelete(semester.id)}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-5 h-5" />
                           </Button>
                           
                           {/* Note: In a complete implementation, this would link to an edit page */}
