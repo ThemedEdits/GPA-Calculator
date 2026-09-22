@@ -25,15 +25,15 @@ export default function MainCalculator() {
   const [isSaving, setIsSaving] = useState(false);
   
   const [subjects, setSubjects] = useState<Subject[]>([
-    { id: '1', name: '', marks: 0, grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 },
-    { id: '2', name: '', marks: 0, grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 },
-    { id: '3', name: '', marks: 0, grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 },
+    { id: '1', name: '', marks: '', grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 },
+    { id: '2', name: '', marks: '', grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 },
+    { id: '3', name: '', marks: '', grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 },
   ]);
 
   const addSubject = () => {
     setSubjects([
       ...subjects,
-      { id: Date.now().toString(), name: '', marks: 0, grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 }
+      { id: Date.now().toString(), name: '', marks: '', grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 }
     ]);
   };
 
@@ -47,13 +47,18 @@ export default function MainCalculator() {
     setSubjects(subjects.map(subject => {
       if (subject.id !== id) return subject;
 
-      const updatedSubject = { ...subject, [field]: value };
+      let parsedValue: any = value;
+      if (field === 'marks' || field === 'creditHours') {
+        parsedValue = value === '' ? '' : Number(value);
+      }
+
+      const updatedSubject = { ...subject, [field]: parsedValue };
 
       if (field === 'marks' || field === 'creditHours') {
-        const marks = field === 'marks' ? Number(value) : subject.marks;
-        const credits = field === 'creditHours' ? Number(value) : subject.creditHours;
+        const marks = field === 'marks' ? parsedValue : subject.marks;
+        const credits = field === 'creditHours' ? parsedValue : subject.creditHours;
         
-        if (marks >= 0 && marks <= 100) {
+        if (marks !== '' && credits !== '' && marks >= 0 && marks <= 100) {
           const { grade, gradePoint } = getGradeInfoFromMarks(marks);
           updatedSubject.grade = grade;
           updatedSubject.gradePoint = gradePoint;
@@ -71,7 +76,7 @@ export default function MainCalculator() {
 
   const handleReset = () => {
     setSubjects([
-      { id: Date.now().toString(), name: '', marks: 0, grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 }
+      { id: Date.now().toString(), name: '', marks: '', grade: '-', gradePoint: 0, creditHours: 3, qualityPoints: 0 }
     ]);
   };
 
@@ -82,7 +87,7 @@ export default function MainCalculator() {
     }
     
     // Check if any valid subjects exist
-    const hasValidSubjects = subjects.some(s => s.marks >= 0 && s.creditHours > 0 && s.grade !== '-');
+    const hasValidSubjects = subjects.some(s => typeof s.marks === 'number' && typeof s.creditHours === 'number' && s.grade !== '-');
     if (!hasValidSubjects) {
       addToast("Please enter valid marks and credit hours for at least one subject.", "error");
       return;
@@ -163,7 +168,7 @@ export default function MainCalculator() {
                       type="number"
                       min="0"
                       max="100"
-                      value={subject.marks || ''}
+                      value={subject.marks}
                       onChange={(e) => updateSubject(subject.id, 'marks', e.target.value)}
                     />
                   </div>
@@ -173,7 +178,7 @@ export default function MainCalculator() {
                       type="number"
                       min="1"
                       step="0.5"
-                      value={subject.creditHours || ''}
+                      value={subject.creditHours}
                       onChange={(e) => updateSubject(subject.id, 'creditHours', e.target.value)}
                     />
                   </div>

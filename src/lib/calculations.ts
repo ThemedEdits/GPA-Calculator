@@ -10,8 +10,8 @@ export function calculateSemesterGPA(subjects: Subject[]): CalculationResult {
   let validSubjectsCount = 0;
 
   subjects.forEach(subject => {
-    // Only calculate if valid marks and credit hours are provided
-    if (subject.marks >= 0 && subject.marks <= 100 && subject.creditHours > 0) {
+    // Only calculate if valid numeric marks and credit hours are provided
+    if (typeof subject.marks === 'number' && typeof subject.creditHours === 'number' && subject.marks >= 0 && subject.marks <= 100 && subject.creditHours > 0) {
       totalCredits += subject.creditHours;
       totalQualityPoints += subject.qualityPoints;
       validSubjectsCount++;
@@ -39,7 +39,7 @@ export function calculateOverallCGPA(semesters: Semester[]): CGPAResult {
 
   semesters.forEach(semester => {
     semester.subjects.forEach(subject => {
-      if (subject.marks >= 0 && subject.marks <= 100 && subject.creditHours > 0) {
+      if (typeof subject.marks === 'number' && typeof subject.creditHours === 'number' && subject.marks >= 0 && subject.marks <= 100 && subject.creditHours > 0) {
         totalCredits += subject.creditHours;
         totalQualityPoints += subject.qualityPoints;
         totalSubjects++;

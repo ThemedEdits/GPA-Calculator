@@ -9,10 +9,10 @@ export interface UserProfile {
 export interface Subject {
   id: string;
   name?: string;
-  marks: number;
+  marks: number | '';
   grade: string;
   gradePoint: number;
-  creditHours: number;
+  creditHours: number | '';
   qualityPoints: number;
 }
 
